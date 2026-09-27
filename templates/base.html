@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="{% block meta_description %}{{ site.name }} — {{ site.role }}. {{ site.tagline }}{% endblock %}">
+  <meta name="author" content="{{ site.name }}">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="{% block og_title %}{{ site.name }}{% endblock %}">
+  <meta property="og:description" content="{% block og_description %}{{ site.tagline }}{% endblock %}">
+  <meta name="theme-color" content="#000000">
+  <title>{% block title %}{{ site.name }}{% endblock %}</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  {% block head_extra %}{% endblock %}
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": {{ site.name|tojson }},
+    "jobTitle": {{ site.role|tojson }},
+    "url": {{ request.url_root|tojson }},
+    "sameAs": [{{ site.github|tojson }}, {{ site.linkedin|tojson }}]
+  }
+  </script>
+</head>
+<body>
+  {% include 'partials/nav.html' %}
+  {% include 'partials/flash.html' %}
+  <main id="main">
+    {% block content %}{% endblock %}
+  </main>
+  {% include 'partials/footer.html' %}
+  <script src="{{ url_for('static', filename='js/main.js') }}" defer></script>
+  {% block scripts %}{% endblock %}
+</body>
+</html>

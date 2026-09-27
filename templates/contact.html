@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+{% block title %}Contact — {{ site.name }}{% endblock %}
+
+{% block content %}
+<section class="page-hero">
+  <div class="page-hero-inner reveal">
+    <p class="hero-eyebrow">Contact</p>
+    <h1 class="page-title">Say <span class="grad-text">hello.</span></h1>
+    <p class="page-lead">Share a few details and I'll respond within 1–2 business days.</p>
+  </div>
+</section>
+
+<section class="section contact-section">
+  <div class="contact-grid reveal">
+    <form class="contact-form" method="post" action="{{ url_for('main.contact') }}" novalidate>
+      {{ form.hidden_tag() }}
+      <div class="form-row">
+        <label class="form-label" for="name">Name</label>
+        {{ form.name(class='form-input' + (' is-invalid' if form.name.errors else ''), id='name') }}
+        {% for error in form.name.errors %}<span class="form-error">{{ error }}</span>{% endfor %}
+      </div>
+      <div class="form-row">
+        <label class="form-label" for="email">Email</label>
+        {{ form.email(class='form-input' + (' is-invalid' if form.email.errors else ''), id='email') }}
+        {% for error in form.email.errors %}<span class="form-error">{{ error }}</span>{% endfor %}
+      </div>
+      <div class="form-row">
+        <label class="form-label" for="subject">Subject</label>
+        {{ form.subject(class='form-input' + (' is-invalid' if form.subject.errors else ''), id='subject') }}
+        {% for error in form.subject.errors %}<span class="form-error">{{ error }}</span>{% endfor %}
+      </div>
+      <div class="form-row">
+        <label class="form-label" for="message">Message</label>
+        {{ form.message(class='form-textarea' + (' is-invalid' if form.message.errors else ''), id='message') }}
+        {% for error in form.message.errors %}<span class="form-error">{{ error }}</span>{% endfor %}
+      </div>
+      <button class="btn-primary btn-pill btn-xl" type="submit">Send message</button>
+    </form>
+    <aside class="contact-aside">
+      <div class="aside-card">
+        <h3>Email</h3>
+        <p><a href="mailto:{{ site.email }}">{{ site.email }}</a></p>
+      </div>
+      <div class="aside-card">
+        <h3>Location</h3>
+        <p>{{ site.location }}</p>
+      </div>
+      <div class="aside-card">
+        <h3>Connect</h3>
+        <ul class="aside-links">
+          <li><a href="{{ site.github }}" target="_blank" rel="noopener noreferrer">GitHub →</a></li>
+          <li><a href="{{ site.linkedin }}" target="_blank" rel="noopener noreferrer">LinkedIn →</a></li>
+        </ul>
+      </div>
+      <div class="aside-card">
+        <h3>Resume</h3>
+        <p><a href="{{ site.resume_url }}" download>Download PDF →</a></p>
+      </div>
+    </aside>
+  </div>
+</section>
+{% endblock %}

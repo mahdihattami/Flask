@@ -1,0 +1,104 @@
+{% extends 'base.html' %}
+{% block title %}About — {{ site.name }}{% endblock %}
+{% block meta_description %}About {{ site.name }} — background, experience, and FAQ.{% endblock %}
+
+{% block content %}
+<section class="page-hero">
+  <div class="page-hero-inner reveal">
+    <p class="hero-eyebrow">About</p>
+    <h1 class="page-title">Clarity in every line<br>of <span class="grad-text">code.</span></h1>
+    <p class="page-lead">{{ site.location }}. I design and build web products that feel calm, fast, and human.</p>
+  </div>
+</section>
+
+<section class="section section-about-hero page-section">
+  <div class="about-hero-grid">
+    <div class="ah-copy reveal">
+      <p class="eyebrow-sm">My approach</p>
+      <h2 class="section-title-xl section-title-left">
+        Built on craft.<br>Backed by rigor.
+      </h2>
+      <p class="ah-text">
+        I combine backend engineering with front-end craft — accessible interfaces,
+        predictable APIs, and deployments you can trust. Whether it's an MVP for a
+        founder or a platform at scale, every detail is considered.
+      </p>
+      <p class="ah-text">
+        When I'm not shipping, I'm exploring new tools, contributing to open source,
+        and refining how teams collaborate on product. I believe the best software
+        disappears — it just works.
+      </p>
+      <div class="ah-ctas">
+        <a class="btn-primary btn-pill" href="{{ url_for('main.contact') }}">Work with me</a>
+      </div>
+    </div>
+    <div class="ah-stack reveal">
+      <p class="eyebrow-sm">Experience</p>
+      {% for item in experience %}
+      <div class="exp-card">
+        <div class="exp-date">{{ item.period }}</div>
+        <div class="exp-info">
+          <h4>{{ item.title }}</h4>
+          <p class="exp-company">{{ item.place }}</p>
+          <p class="exp-detail">{{ item.detail }}</p>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<section class="section section-skills-new page-section-light">
+  <header class="section-header reveal">
+    <p class="eyebrow-sm">Toolbox</p>
+    <h2 class="section-title-xl">The stack.</h2>
+    <p class="section-lead-lg">Tools I use daily to ship reliable, polished products.</p>
+  </header>
+  <div class="skills-grid-new">
+    {% for group in skills %}
+    <div class="skill-panel reveal">
+      <div class="sp-icon"></div>
+      <h3>{{ group.name }}</h3>
+      <ul>
+        {% for item in group['items'] %}
+        <li>{{ item }}</li>
+        {% endfor %}
+      </ul>
+    </div>
+    {% endfor %}
+  </div>
+</section>
+
+<section class="section section-faq">
+  <header class="reveal">
+    <p class="eyebrow-sm" style="text-align:center;">FAQ</p>
+    <h2 class="section-title">Questions, answered.</h2>
+  </header>
+  <div class="faq-list">
+    {% for item in faq %}
+    <details class="faq-item reveal">
+      <summary>{{ item.question }}</summary>
+      <p>{{ item.answer }}</p>
+    </details>
+    {% endfor %}
+  </div>
+</section>
+
+<section class="section-cta-final">
+  <div class="cta-bg-blobs" aria-hidden="true">
+    <div class="blob b1"></div>
+    <div class="blob b2"></div>
+  </div>
+  <div class="cta-final-inner reveal">
+    <p class="eyebrow-sm eyebrow-light">Let's work together</p>
+    <h2 class="cta-final-title">
+      Have a project in<br><span class="grad-text">mind?</span>
+    </h2>
+    <p class="cta-final-lead">Tell me about it — I'll get back within a day or two.</p>
+    <div class="cta-final-actions">
+      <a class="btn-primary btn-pill btn-xl" href="{{ url_for('main.contact') }}">Send a message</a>
+      <a class="btn-secondary btn-pill btn-xl" href="{{ site.resume_url }}" download>Download resume</a>
+    </div>
+  </div>
+</section>
+{% endblock %}

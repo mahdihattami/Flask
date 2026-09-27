@@ -1,0 +1,30 @@
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <p class="footer-name">{{ site.name }}</p>
+      <p class="footer-tagline">{{ site.tagline }}</p>
+    </div>
+    <div class="footer-columns">
+      <div class="footer-col">
+        <h3>Explore</h3>
+        <ul>
+          <li><a href="{{ url_for('main.projects') }}">Work</a></li>
+          <li><a href="{{ url_for('main.about') }}">About</a></li>
+          <li><a href="{{ url_for('main.index') }}#skills">Skills</a></li>
+          <li><a href="{{ url_for('main.contact') }}">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h3>Connect</h3>
+        <ul>
+          <li><a href="mailto:{{ site.email }}">Email</a></li>
+          <li><a href="{{ site.github }}" target="_blank" rel="noopener noreferrer">GitHub</a></li>
+          <li><a href="{{ site.linkedin }}" target="_blank" rel="noopener noreferrer">LinkedIn</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="footer-legal">
+    <p>Copyright © {{ site.name.split()[0] }} {{ current_year }}. Built with Flask.</p>
+  </div>
+</footer>

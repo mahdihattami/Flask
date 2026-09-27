@@ -1,0 +1,87 @@
+{% extends 'base.html' %}
+{% block title %}{{ project.title }} — {{ site.name }}{% endblock %}
+{% block og_title %}{{ project.title }} — {{ site.name }}{% endblock %}
+{% block og_description %}{{ project.description }}{% endblock %}
+
+{% block content %}
+<section class="project-hero bento-{{ project.theme }}" style="--accent: {{ project.accent }}">
+  <div class="project-hero-inner reveal">
+    <a class="back-link" href="{{ url_for('main.projects') }}">All projects</a>
+    <p class="hero-eyebrow">{{ project.year }}</p>
+    <h1 class="page-title">{{ project.title }}</h1>
+    <p class="page-lead">{{ project.subtitle }}</p>
+    <ul class="bento-tags-sm project-tags">
+      {% for tag in project.tags %}
+      <li>{{ tag }}</li>
+      {% endfor %}
+    </ul>
+  </div>
+</section>
+
+<section class="section project-detail">
+  <div class="project-detail-grid reveal">
+    <div class="project-main">
+      <h2 class="section-title section-title-left">Overview</h2>
+      <p>{{ project.long_description }}</p>
+      <h3 class="project-subheading">Highlights</h3>
+      <ul class="highlight-list">
+        {% for point in project.highlights %}
+        <li>{{ point }}</li>
+        {% endfor %}
+      </ul>
+      {% if project.url and project.url != '#' %}
+      <a class="btn-primary btn-pill" href="{{ project.url }}" target="_blank" rel="noopener noreferrer">Visit live site →</a>
+      {% endif %}
+    </div>
+    <aside class="project-aside">
+      <div class="aside-card">
+        <h3>Role</h3>
+        <p>Design & development</p>
+      </div>
+      <div class="aside-card">
+        <h3>Year</h3>
+        <p>{{ project.year }}</p>
+      </div>
+      <div class="aside-card">
+        <h3>Stack</h3>
+        <p>{{ project.tags | join(', ') }}</p>
+      </div>
+      <a class="btn-secondary btn-pill btn-block" href="{{ url_for('main.contact') }}">Start a similar project</a>
+    </aside>
+  </div>
+</section>
+
+{% if others %}
+<section class="section section-related">
+  <p class="eyebrow-sm reveal">More work</p>
+  <h2 class="section-title">You might also like.</h2>
+  <div class="related-grid">
+    {% for p in others %}
+    <a class="related-card reveal" href="{{ url_for('main.project_detail', slug=p.slug) }}">
+      <span class="bento-year-tag" style="align-self:flex-start;">{{ p.year }}</span>
+      <span class="related-title">{{ p.title }}</span>
+      <span class="bento-tagline" style="color: var(--text-secondary); font-size:15px;">{{ p.subtitle }}</span>
+      <span class="link-arrow">Learn more</span>
+    </a>
+    {% endfor %}
+  </div>
+</section>
+{% endif %}
+
+<section class="section-cta-final">
+  <div class="cta-bg-blobs" aria-hidden="true">
+    <div class="blob b1"></div>
+    <div class="blob b2"></div>
+  </div>
+  <div class="cta-final-inner reveal">
+    <p class="eyebrow-sm eyebrow-light">Like this?</p>
+    <h2 class="cta-final-title">
+      Let's build something<br><span class="grad-text">yours.</span>
+    </h2>
+    <p class="cta-final-lead">Tell me about your project — I'd love to chat.</p>
+    <div class="cta-final-actions">
+      <a class="btn-primary btn-pill btn-xl" href="{{ url_for('main.contact') }}">Get in touch</a>
+    </div>
+  </div>
+</section>
+{% endblock %}

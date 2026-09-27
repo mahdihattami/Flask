@@ -1,0 +1,279 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<section class="hero" id="top">
+  <div class="hero-bg" aria-hidden="true">
+    <div class="hero-gradient gradient-1"></div>
+    <div class="hero-gradient gradient-2"></div>
+    <div class="hero-noise"></div>
+  </div>
+  <div class="hero-content reveal">
+    <p class="hero-eyebrow">{{ site.role }}</p>
+    <h1 class="hero-title">
+      <span class="hero-line">Portfolio.</span>
+      <span class="hero-line hero-accent">Reimagined.</span>
+    </h1>
+    <p class="hero-subtitle">{{ site.tagline }} Products that feel inevitable — simple on the surface, thoughtful underneath.</p>
+    <div class="hero-cta">
+      <a class="btn-primary btn-pill" href="{{ url_for('main.projects') }}">View my work</a>
+      <a class="btn-secondary btn-pill" href="{{ url_for('main.contact') }}">Get in touch</a>
+    </div>
+  </div>
+  <div class="hero-showcase reveal" aria-hidden="true">
+    <div class="showcase-device">
+      <div class="device-screen">
+        <div class="screen-content">
+          <div class="screen-bar"></div>
+          <div class="screen-hero"></div>
+          <div class="screen-cards">
+            <div class="screen-card sc-1"></div>
+            <div class="screen-card sc-2"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <a class="scroll-indicator" href="#showcase" aria-label="Scroll to explore">
+    <span class="si-label">Scroll</span>
+    <span class="si-arrow"></span>
+  </a>
+</section>
+
+<section class="sticky-section" id="showcase">
+  <div class="sticky-inner">
+    <div class="sticky-copy reveal">
+      <p class="eyebrow-sm">Crafted with precision</p>
+      <h2 class="giant-title">
+        Every pixel.<br>
+        <span class="text-fade">Every line of code.</span>
+      </h2>
+    </div>
+    <div class="sticky-visual reveal">
+      <div class="code-window">
+        <div class="code-bar">
+          <span class="dot d-red"></span>
+          <span class="dot d-yellow"></span>
+          <span class="dot d-green"></span>
+          <span class="code-title">app.py</span>
+        </div>
+        <div class="code-body">
+          <span class="c-line c-kw">from</span> <span class="c-line c-mod">flask</span> <span class="c-line c-kw">import</span> <span class="c-line c-fn">Flask</span><br>
+          <span class="c-line c-kw">class</span> <span class="c-line c-cl">Portfolio</span>:<br>
+          &nbsp;&nbsp;<span class="c-line c-cmt"># Built for performance</span><br>
+          &nbsp;&nbsp;<span class="c-line c-kw">def</span> <span class="c-line c-fn">create</span>(self):<br>
+          &nbsp;&nbsp;&nbsp;&nbsp;<span class="c-line c-kw">return</span> <span class="c-line c-str">"✨ Beautiful"</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section section-stats-dark" id="stats">
+  <div class="stats-grid stats-grid-large reveal">
+    <div class="stat-block">
+      <span class="stat-number" data-count="{{ stats.years }}">0</span>
+      <span class="stat-suffix">+</span>
+      <p class="stat-desc">Years building digital products</p>
+    </div>
+    <div class="stat-divider" aria-hidden="true"></div>
+    <div class="stat-block">
+      <span class="stat-number" data-count="{{ stats.projects }}">0</span>
+      <span class="stat-suffix">+</span>
+      <p class="stat-desc">Projects shipped from idea to launch</p>
+    </div>
+    <div class="stat-divider" aria-hidden="true"></div>
+    <div class="stat-block">
+      <span class="stat-number" data-count="{{ stats.clients }}">0</span>
+      <span class="stat-suffix">+</span>
+      <p class="stat-desc">Happy clients and teams worldwide</p>
+    </div>
+  </div>
+</section>
+
+<section class="section section-bento" id="work">
+  <header class="section-header-wide reveal">
+    <div>
+      <p class="eyebrow-sm">Selected work</p>
+      <h2 class="section-title-xl">Featured projects.</h2>
+    </div>
+    <a class="link-arrow-lg" href="{{ url_for('main.projects') }}">See all projects ›</a>
+  </header>
+
+  <div class="bento-grid-xl">
+    {% for project in projects %}
+    {% set sizes = [
+      'bento-xl bento-dark',
+      'bento-lg bento-light',
+      'bento-md bento-gradient',
+      'bento-md bento-dark'
+    ] %}
+    <article class="bento-item {{ sizes[loop.index0] if loop.index0 < sizes|length else sizes[0] }} reveal" style="--accent: {{ project.accent }}" data-project>
+      <div class="bento-bg-glow"></div>
+      <div class="bento-content">
+        <div class="bento-top">
+          <span class="bento-year-tag">{{ project.year }}</span>
+          <ul class="bento-tags-sm">
+            {% for tag in project.tags[:2] %}
+            <li>{{ tag }}</li>
+            {% endfor %}
+          </ul>
+        </div>
+        <div class="bento-mid">
+          <h3 class="bento-name">{{ project.title }}</h3>
+          <p class="bento-tagline">{{ project.subtitle }}</p>
+          <p class="bento-about">{{ project.description }}</p>
+        </div>
+        <a class="bento-cta" href="{{ url_for('main.project_detail', slug=project.slug) }}">
+          <span>Explore</span>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+      </div>
+      <div class="bento-visual" aria-hidden="true">
+        <div class="bv-shape bv-{{ project.slug }}"></div>
+      </div>
+    </article>
+    {% endfor %}
+  </div>
+</section>
+
+<section class="section section-featured-dark">
+  <div class="featured-dark-inner reveal">
+    <p class="eyebrow-sm eyebrow-light">Design Philosophy</p>
+    <h2 class="section-title-xl section-title-white">
+      Great products feel<br>
+      <span class="grad-text">effortless.</span>
+    </h2>
+    <p class="featured-lead">
+      I build with calm interfaces, predictable APIs, and deployments you can trust.
+      From quick MVPs to platforms at scale — every detail is considered.
+    </p>
+    <div class="philosophy-grid">
+      <div class="phil-card">
+        <div class="phil-icon pi-1"></div>
+        <h3>Design</h3>
+        <p>Accessible, typography-led interfaces with motion that serves a purpose.</p>
+      </div>
+      <div class="phil-card">
+        <div class="phil-icon pi-2"></div>
+        <h3>Engineering</h3>
+        <p>Solid architecture, clean code, and performance budgets from day one.</p>
+      </div>
+      <div class="phil-card">
+        <div class="phil-icon pi-3"></div>
+        <h3>Product</h3>
+        <p>Close collaboration, clear milestones, and measurable outcomes.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section section-testimonials-new">
+  <header class="section-header reveal">
+    <p class="eyebrow-sm">Testimonials</p>
+    <h2 class="section-title-xl">Kind words.</h2>
+    <p class="section-lead-lg">What collaborators say about working together.</p>
+  </header>
+  <div class="testi-row">
+    {% for item in testimonials %}
+    <figure class="testi-card reveal">
+      <div class="testi-quote-mark">"</div>
+      <blockquote class="testi-quote-body">{{ item.quote }}</blockquote>
+      <figcaption class="testi-author-block">
+        <div class="testi-avatar">{{ item.author[0] }}</div>
+        <div>
+          <cite class="testi-name">{{ item.author }}</cite>
+          <span class="testi-role">{{ item.role }}</span>
+        </div>
+      </figcaption>
+    </figure>
+    {% endfor %}
+  </div>
+</section>
+
+<section class="section section-about-hero">
+  <div class="about-hero-grid">
+    <div class="ah-copy reveal">
+      <p class="eyebrow-sm">About me</p>
+      <h2 class="section-title-xl section-title-left">
+        Designed to be<br>understood.
+      </h2>
+      <p class="ah-text">
+        I'm {{ site.name }}, a {{ site.role|lower }} who believes the best software
+        disappears — it just works. I spend my days crafting products that are
+        fast, accessible, and a pleasure to use.
+      </p>
+      <div class="ah-ctas">
+        <a class="link-arrow-lg" href="{{ url_for('main.about') }}">Read my story ›</a>
+      </div>
+    </div>
+    <div class="ah-stack reveal">
+      {% for item in experience %}
+      <div class="exp-card">
+        <div class="exp-date">{{ item.period }}</div>
+        <div class="exp-info">
+          <h4>{{ item.title }}</h4>
+          <p class="exp-company">{{ item.place }}</p>
+          <p class="exp-detail">{{ item.detail }}</p>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<section class="section section-skills-new">
+  <header class="section-header reveal">
+    <p class="eyebrow-sm">Capabilities</p>
+    <h2 class="section-title-xl">The toolbox.</h2>
+    <p class="section-lead-lg">The stack I use to turn ideas into reliable products.</p>
+  </header>
+  <div class="skills-marquee" aria-hidden="true">
+    <div class="marquee-track">
+      {% for group in skills %}
+      <div class="marquee-chip">
+        <span class="mc-label">{{ group.name }}</span>
+        <span class="mc-items">{{ group['items'] | join(' · ') }}</span>
+      </div>
+      {% endfor %}
+      {% for group in skills %}
+      <div class="marquee-chip">
+        <span class="mc-label">{{ group.name }}</span>
+        <span class="mc-items">{{ group['items'] | join(' · ') }}</span>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+  <div class="skills-grid-new">
+    {% for group in skills %}
+    <div class="skill-panel reveal">
+      <div class="sp-icon"></div>
+      <h3>{{ group.name }}</h3>
+      <ul>
+        {% for item in group['items'] %}
+        <li>{{ item }}</li>
+        {% endfor %}
+      </ul>
+    </div>
+    {% endfor %}
+  </div>
+</section>
+
+<section class="section-cta-final" id="contact-preview">
+  <div class="cta-bg-blobs" aria-hidden="true">
+    <div class="blob b1"></div>
+    <div class="blob b2"></div>
+  </div>
+  <div class="cta-final-inner reveal">
+    <p class="eyebrow-sm eyebrow-light">Let's work together</p>
+    <h2 class="cta-final-title">
+      Let's build something<br>
+      <span class="grad-text">remarkable.</span>
+    </h2>
+    <p class="cta-final-lead">Tell me about your project — I'll get back within a day or two.</p>
+    <div class="cta-final-actions">
+      <a class="btn-primary btn-pill btn-xl" href="{{ url_for('main.contact') }}">Send a message</a>
+      <a class="btn-secondary btn-pill btn-xl" href="{{ site.resume_url }}" download>Download resume</a>
+    </div>
+  </div>
+</section>
+{% endblock %}

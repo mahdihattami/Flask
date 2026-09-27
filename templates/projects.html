@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+{% block title %}Projects — {{ site.name }}{% endblock %}
+
+{% block content %}
+<section class="page-hero page-hero-light">
+  <div class="page-hero-inner reveal">
+    <p class="hero-eyebrow">Selected Work</p>
+    <h1 class="page-title">Projects.</h1>
+    <p class="page-lead">A collection of products, platforms, and experiments — each built with intent.</p>
+  </div>
+</section>
+
+<section class="section section-bento page-section-flat">
+  <div class="bento-grid-xl bento-grid-full">
+    {% for project in projects %}
+    {% set size_loop = loop.index0 % 4 %}
+    {% set sizes = ['bento-xl bento-dark', 'bento-lg bento-light', 'bento-md bento-gradient', 'bento-md bento-dark'] %}
+    <article class="bento-item {{ sizes[size_loop] }} reveal" style="--accent: {{ project.accent }}" data-project>
+      <div class="bento-bg-glow"></div>
+      <div class="bento-content">
+        <div class="bento-top">
+          <span class="bento-year-tag">{{ project.year }}</span>
+          <ul class="bento-tags-sm">
+            {% for tag in project.tags[:2] %}
+            <li>{{ tag }}</li>
+            {% endfor %}
+          </ul>
+        </div>
+        <div class="bento-mid">
+          <h3 class="bento-name">{{ project.title }}</h3>
+          <p class="bento-tagline">{{ project.subtitle }}</p>
+          <p class="bento-about">{{ project.description }}</p>
+        </div>
+        <a class="bento-cta" href="{{ url_for('main.project_detail', slug=project.slug) }}">
+          <span>View case study</span>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+      </div>
+      <div class="bento-visual" aria-hidden="true">
+        <div class="bv-shape bv-{{ project.slug }}"></div>
+      </div>
+    </article>
+    {% endfor %}
+  </div>
+</section>
+
+<section class="section-cta-final">
+  <div class="cta-bg-blobs" aria-hidden="true">
+    <div class="blob b1"></div>
+    <div class="blob b2"></div>
+  </div>
+  <div class="cta-final-inner reveal">
+    <p class="eyebrow-sm eyebrow-light">Impressed?</p>
+    <h2 class="cta-final-title">
+      Let's build your<br><span class="grad-text">next project.</span>
+    </h2>
+    <p class="cta-final-lead">Have an idea? A problem to solve? I'd love to hear about it.</p>
+    <div class="cta-final-actions">
+      <a class="btn-primary btn-pill btn-xl" href="{{ url_for('main.contact') }}">Start a conversation</a>
+      <a class="btn-secondary btn-pill btn-xl" href="{{ site.resume_url }}" download>Download resume</a>
+    </div>
+  </div>
+</section>
+{% endblock %}

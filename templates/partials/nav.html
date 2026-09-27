@@ -1,0 +1,16 @@
+<header class="global-nav" data-nav>
+  <nav class="nav-inner" aria-label="Primary">
+    <a class="nav-logo" href="{{ url_for('main.index') }}">{{ site.name.split()[0] }}</a>
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav-menu" aria-label="Open menu">
+      <span></span>
+      <span></span>
+    </button>
+    <ul class="nav-links" id="nav-menu">
+      <li><a href="{{ url_for('main.projects') }}" {% if request.endpoint == 'main.projects' or request.endpoint == 'main.project_detail' %}aria-current="page"{% endif %}>Work</a></li>
+      <li><a href="{{ url_for('main.about') }}" {% if request.endpoint == 'main.about' %}aria-current="page"{% endif %}>About</a></li>
+      <li><a href="{{ url_for('main.index') }}#skills">Skills</a></li>
+      <li><a href="{{ url_for('main.contact') }}" {% if request.endpoint == 'main.contact' %}aria-current="page"{% endif %}>Contact</a></li>
+      <li class="nav-resume"><a class="nav-cta" href="{{ site.resume_url }}" download>Resume</a></li>
+    </ul>
+  </nav>
+</header>
